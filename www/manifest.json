@@ -1,0 +1,30 @@
+{
+    "name": "MAL Top List Anime by genre",
+    "short_name": "Top Anime MAL",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#C30F0F",
+    "icons": [
+      {
+        "src": "img/logos/logo50.png",
+        "sizes": "50x50",
+        "type": "image/png"
+      },
+      {
+        "src": "img/logos/logo144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "img/logo.png",
+        "sizes": "160x160",
+        "type": "image/png"
+      }
+    ],
+    "related_applications": [
+      {
+        "platform": "web"
+        
+      }
+    ]
+  }
