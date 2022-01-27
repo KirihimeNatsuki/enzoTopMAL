@@ -1,12 +1,10 @@
 
 
-body {
-    -webkit-touch-callout: none;                
-    -webkit-text-size-adjust: none;             
-    -webkit-user-select: none;                  
+body {               
     background: linear-gradient(to bottom right, rgba(225 213 216)0%,  rgba(195 15 15 / 85%) 50%);
+    background-attachment: fixed;
+    background-size: cover;
     font-size:12px;
-    height:100vh;
     margin:0px;
     padding:0px;
     padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
@@ -68,13 +66,91 @@ h1 {
 #deviceready.ready .event.listening { display: none; }
 #deviceready.ready .event.received { display: block; }
 
+  .btn-txt{
+    text-decoration:none; 
+    color: #212529;
+    text-transform:uppercase;
+    margin-left: 20px;
+  }
+
+  .navbar{
+    background: rgb(195 15 15);
+    background: linear-gradient(90deg, rgba(225 213 216) 0%,  rgba(195 15 15 / 85%) 100%);
+      -webkit-transform: scale(1);
+      transform: scale(1);
+  }
+
+  .neon{
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    text-align: center;
+    max-width: fit-content;
+    display: block;
+    padding: 25px 30px;
+    color: #dbdddd;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.neon:hover{
+    background: #dbdddd;
+    color: #050801;
+    box-shadow: 0 0 5px #dbdddd,
+                0 0 25px #dbdddd,
+                0 0 50px #dbdddd,
+                0 0 200px #dbdddd;
+     -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+}
+.neon:nth-child(1){
+    filter: hue-rotate(270deg);
+}
+.neon:nth-child(2){
+    filter: hue-rotate(110deg);
+}
+.neon span{
+    position: absolute;
+    display: block;
+}
+.neon span:nth-child(1){
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,transparent,#dbdddd);
+    animation: animate1 1s linear infinite;
+    animation-delay: 0.50s;
+}
+@keyframes animate1{
+    0%{
+        left: -100%;
+    }
+    50%,100%{
+        left: 100%;
+    }
+}
+
+#cancel_top{
+    display: flex;
+    margin-top: 50px;
+    background-color: transparent;
+    border: transparent;
+}
+
+#cancel_top i {
+    margin-top: 5px;
+    margin-right: 10px;
+}
 
 .custom-btn {
     width: 130px;
     height: 40px;
     color: #fff;
     border-radius: 5px;
-    padding: 10px 25px;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
     background: transparent;
@@ -89,9 +165,7 @@ h1 {
   }
 
   .btn-add{
-    position: fixed;
-    right: 50px;
-    bottom: 60px;
+    margin-top: 30px;
     display: block;
     border:none;
     box-shadow: none;
@@ -112,7 +186,6 @@ h1 {
      7px 7px 20px 0px rgba(0,0,0,.1),
      4px 4px 5px 0px rgba(0,0,0,.1);
     border-radius: 5px;
-    margin:0;
     text-align: center;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -159,69 +232,54 @@ h1 {
     transform: rotateX(-90deg);
   }
 
-  .btn-txt{
-    text-decoration:none; 
-    color: #212529;
-    text-transform:uppercase;
-    margin-left: 20px;
-  }
+.hidden {
+  display: none !important;
+}
 
-  .navbar{
-    background: rgb(195 15 15);
-    background: linear-gradient(90deg, rgba(225 213 216) 0%,  rgba(195 15 15 / 85%) 100%);
-      -webkit-transform: scale(1);
-      transform: scale(1);
-  }
+#copyright {
+  position: fixed;
+  bottom: 0%;
+  right: 1%;
+  font-size: 10px; 
+  color: black;
+}
 
-  .neon{
-    position: fixed;
-    right: 50px;
-    bottom: 60px;
-    display: block;
-    padding: 25px 30px;
-    margin: 40px 0;
-    color: #03e9f4;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: 0.5s;
-    letter-spacing: 4px;
-    overflow: hidden;
-    margin-right: 50px;
-   
+.form {
+    margin-top: 30px;
+    display: grid;
+    place-content: center;
 }
-.neon:hover{
-    background: #03e9f4;
-    color: #050801;
-    box-shadow: 0 0 5px #03e9f4,
-                0 0 25px #03e9f4,
-                0 0 50px #03e9f4,
-                0 0 200px #03e9f4;
-     -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+
+#GenreTop {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  display: flex;
+  text-decoration: none;
+  text-transform: uppercase;
 }
-.neon:nth-child(1){
-    filter: hue-rotate(270deg);
+
+#top {
+  text-align: center;
+  margin-top: 50px;
+  display: flex;
 }
-.neon:nth-child(2){
-    filter: hue-rotate(110deg);
+
+#top div{
+  padding: 20px 15px 40px 15px;
+  display: grid;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 210px;
+  font-size: x-large;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
-.neon span{
-    position: absolute;
-    display: block;
-}
-.neon span:nth-child(1){
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg,transparent,#03e9f4);
-    animation: animate1 1s linear infinite;
-    animation-delay: 0.50s;
-}
-@keyframes animate1{
-    0%{
-        left: -100%;
-    }
-    50%,100%{
-        left: 100%;
-    }
+
+.center {
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
 }

@@ -5,13 +5,11 @@
         <link rel="manifest" href="manifest.json" />
     <script>
       window.addEventListener("load", () => {
-        if ("cordova" in window) {
-        } else {
-          if ("serviceWorker" in navigator) {
-            navigator.serviceWorker
-              .register("serviceworker.js", { scope: "./" })
-              .then(function (reg) {});
-          }
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("serviceworker.js", { scope: "/" })
+            .then(function (reg) {});
+        }
           var OneSignal = window.OneSignal || [];
           var initConfig = {
             appId: "21a11dc4-59f1-4a47-9772-a892e9388173",
@@ -28,7 +26,8 @@
             OneSignal.init(initConfig);
           });
         }
-      });
+      );
+        
     </script>
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
@@ -45,10 +44,10 @@
       integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
       crossorigin="anonymous"
     ></script>
-    <!--<script
+    <!-- <script
       src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
       async=""
-    ></script>-->
+    ></script> -->
     <title>Top anime MAL</title>
 
     </head>
@@ -56,25 +55,74 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
               <a class="navbar-brand" href="#"><img src="img/logos/logo50.png" /><span class="btn-txt">Top anime MAL</span></a>
+              <!--widget batterie...-->
             </div>
         </nav>
-        <main class="">
-            <div class="row">
+        <main id="home">
+            <div class="" id="default">
+              <div class="row" id="">
                 <div class="col">
-                    <h1>Top anime by genre</h1>
+                    <h1>Top anime par genre</h1>
+                    <select id="GenreTop" name="GenreTop_select" onchange="showTopList(this)">
+                      <option value="">--Chosir une catégorie--</option>
+                      <option value="action">Action</option>
+                      <option value="romance">Romance</option>
+                      <option value="comedy">Comédie</option>
+                      <option value="drame">Drame</option>
+                      <option value="fantasy">Fantasy</option>
+                      <option value="all">Tous</option>
+                    </select> 
+                    <div class="row" id="top">
+
+                    </div>
+                    <a class="neon" id="create_list">
+                      <span></span>
+                      Créer sa liste 
+                      <i class="fas fa-plus-circle"></i>
+                    </a>
                 </div>
+              </div>
             </div>
-            <div class="row" id="top"></div>
-            <button class="custom-btn btn-add"><span>Créer sa liste</span><span>➕</span></button>
-            <a class="neon" href="#">
-                <span></span>
-                Neon button
-            </a>
+            
         </main>
+        <div id="form_page" class="hidden">
+          <button id="back_form">
+            <i class="fas fa-arrow-circle-left"></i>
+          </button>
+            <div class="col">
+              <div class="row" style="justify-content: center;">
+                <h1>Ajouter votre top par genre</h1>
+              </div>
+              <input class="center" style="margin-top: 30px;" type="text" placeholder="Nom du top Anime" id="inputNomListe" />
+              <button class="center" id="addItem" style="max-width: 50px; margin-top: 50px;">
+                <i class="far fa-plus-square"></i>
+              </button>
+              <div id="items">
+              </div>
+              <div class="row">
+                <div class="col" style="text-align: -webkit-center;">
+                  <button class="custom-btn btn-add" id="newListe"><span>Créer sa liste</span><span>➕</span></button>
+                  <button id="cancel_top">
+                    <i class="fas fa-remove-format"></i>
+                    <p>Effacer champs</p>
+                  </button>
+                </div>
+              </div> 
+            </div>
+        </div>
+        <div id="detail_page" class="hidden">
+          <button id="back_detail">
+            <i class="fas fa-arrow-circle-left"></i>
+          </button>
+          <div id="details"></div>
+        </div>
         <footer>
-            <!--widget batterie...-->
+          <p id="copyright">Made by Enzo Lemarchand</p>
+            <!--widgets supp...-->
         </footer>
-        <script src="cordova.js"></script>
+        <script src="https://kit.fontawesome.com/04ea3b5487.js" crossorigin="anonymous"></script>
         <script src="js/index.js"></script>
+        <script src="js/top.js"></script>
+        <script src="js/native.js"></script>
     </body>
 </html>
