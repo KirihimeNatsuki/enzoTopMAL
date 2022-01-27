@@ -69,8 +69,8 @@ const effacerChamps = () => {
     document.getElementById("inputNomListe").value = "";
 }
 const checkTops = () => {
-    if(window.localStorage.getItem("topAnime") === null) {
-        window.localStorage.setItem("topAnime", "[]");
+    if(window.localStorage.getItem("topAnimeList") === null) {
+        window.localStorage.setItem("topAnimeList", "[]");
     }
     
     createNewListe2();
@@ -97,21 +97,18 @@ const createNewListe2 = () => {
     let topAnime = new Object();
     let listefinale;
 
-    for (let i = 0; i <= document.getElementById("item"); i++) {
-        topAnime.nomAnime = document.getElementById("itemAnime" + document.getElementsByClassName("item").length).value;
-        topAnime.genre = document.getElementById("itemGenre" + document.getElementsByClassName("item").length-1).value;
-        topAnime.url = document.getElementById("itemURL" + document.getElementsByClassName("item").length-2).value;
-        topAnime.description = document.getElementById("itemDescription" + document.getElementsByClassName("item").length-3).value;
-        topAnime.image = document.getElementById("itemImg" + document.getElementsByClassName("item").length-4).value;
-        console.log(JSON.stringify(topAnime))
-        if (i = 0) {
+    for (let i = 0; i < document.getElementsByClassName("item").length; i++) {
+        topAnime.nomAnime = document.getElementById("itemAnime" + i).value;
+        topAnime.genre = document.getElementById("itemGenre" + i).value;
+        topAnime.url = document.getElementById("itemURL" + i).value;
+        topAnime.description = document.getElementById("itemDescription" + i).value;
+        topAnime.image = document.getElementById("itemImg" + i).value;
+        if (i === 0) {
             listefinale = JSON.stringify(topAnime);
         }
         else {
-            console.log(listefinale);
-            console.log(TypeOf(listefinale));
+            console.log(typeof listefinale);
             listefinale = listefinale + "," + JSON.stringify(topAnime);
-            console.log(listefinale);
         };
     }
     let listefinaleString = JSON.stringify(listefinale);
@@ -121,38 +118,47 @@ const createNewListe2 = () => {
     window.localStorage.setItem(NomListe, listefinaleParsed);
 
     let liste = JSON.parse(window.localStorage.getItem("topAnimeList"));
-    console.log(liste);
-    Object.assign(liste, {[NomListe]: NomListe});
+    liste.push(NomListe);
     localStorage.setItem("topAnimeList", JSON.stringify(liste));
+
+    effacerChamps();
+    document.getElementById("form_page").classList.add("hidden");
+    document.getElementById("home").classList.remove("hidden");
 }
 
 function showTopList(element)
 {
     let index = element.selectedIndex;
     let value = element.options[index].value;
-
     document.getElementById("top").innerHTML = "";
-    
-    let topAnime = JSON.parse(window.localStorage.getItem("topAnime"));
-    for(let i = 0; i < topAnime.length; i++) {
-        let div = document.createElement("div");
-        div.classList.add("list-item");
 
-        let item = document.createElement("span");
-        item.classList.add("item");
-        item.innerText = topAnime[i];
-        div.appendChild(item);
+    let topAnimeList = JSON.parse(window.localStorage.getItem("topAnimeList"));
+    let topAnime;
+    console.log(topAnime);
+    for(let i = 0; i < topAnimeList.length; i++) {
+        console.log("test");
+        topAnime = JSON.parse(window.localStorage.getItem(topAnimeList[i]))
+        console.log(topAnimeList[i]);
+        console.log(topAnime.genre);
+        if (value === topAnime.genre) {
+            let div = document.createElement("div");
+            div.classList.add("list-item");
 
-        let button = document.createElement("button");
-        button.innerText = "Description -->";
-        button.onclick = () => {
-            show_list(topAnime[i])
+            let item = document.createElement("span");
+            item.classList.add("item");
+            item.innerText = topAnimeList[i];
+            div.appendChild(item);
+
+            let button = document.createElement("button");
+            button.innerText = "Description -->";
+            button.onclick = () => {
+                show_list(topAnimeList[i])
+            }
+            div.appendChild(button);
+
+            document.getElementById("top").appendChild(div);
         }
-        div.appendChild(button);
-
-        document.getElementById("top").appendChild(div);
     }
-
  }
 
  const divAnime = `
@@ -164,7 +170,7 @@ function showTopList(element)
         <p class="anime_genre">
             __genre__
         </p>
-        <a href="__url__">link</a>
+        <a href="__url__" target="_blank">link</a>
     </div>
 </div>
 `;
@@ -188,9 +194,10 @@ function show_list(NomListe){
     topAnime.forEach((element, i) => {
         const newDivAnime = divAnime
             .replace("__compteur__", i+1)
-            .replace("__name__", element.name)
+            .replace("__name__", element.nomAnime)
             .replace("__src__", element.img)
             .replace("__genre__", element.genre)
+            .replace("__genre__", element.description)
             .replace("__url__", element.url);
 
             topAnimeActive.appendChild(htmlToElement(newDivAnime));
