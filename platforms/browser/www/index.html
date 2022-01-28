@@ -1,51 +1,149 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8">
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <meta name="color-scheme" content="light dark">
-        <link rel="stylesheet" href="css/index.css">
-        <title>Hello World</title>
+        <link rel="manifest" href="manifest.json" />
+    <script>
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("serviceworker.js", { scope: "/" })
+            .then(function (reg) {});
+        }
+          var OneSignal = window.OneSignal || [];
+          var initConfig = {
+            appId: "21a11dc4-59f1-4a47-9772-a892e9388173",
+            notifyButton: {
+              enable: true,
+            },
+          };
+          OneSignal.push(function () {
+            OneSignal.SERVICE_WORKER_PARAM = { scope: "push/onesignal/" };
+            OneSignal.SERVICE_WORKER_PATH =
+              "push/onesignal/OneSignalSDKWorker.js";
+            OneSignal.SERVICE_WORKER_UPDATER_PATH =
+              "push/onesignal/OneSignalSDKUpdaterWorker.js";
+            OneSignal.init(initConfig);
+          });
+        }
+      );
+        
+    </script>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script
+      src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+      async=""
+    ></script> -->
+    <title>Top anime MAL</title>
+
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img src="img/logos/logo50.png" /><span class="btn-txt">Top anime MAL</span></a>
+              <div id="batteryStatus">
+                <div id="battery">
+                  Status batterie
+                  <i id="full" class="fas fa-battery-full hidden"></i>
+                  <i id="half" class="fas fa-battery-quarter hidden"></i>
+                  <i id="low" class="fas fa-battery-empty hidden"></i>
+                </div>
+                <div></div>
+              </div>    
+            </div>
+        </nav>
+        <div id="loader" style="text-align: center;">
+          <h1>Chargement</h1>
+          <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+          </svg>
+          <script type="text/javascript" charset="utf-8">
+            setTimeout(()=>{
+              document.getElementById('loader').classList.add("hidden");
+              document.getElementById("home").classList.remove("hidden");}, 4000);
+          </script>
+        </div>
+        <main id="home" class="hidden">
+            <div class="" id="default">
+              <div class="row" id="">
+                <div class="col">
+                    <h1>Top anime par genre</h1>
+                    <select id="GenreTop" name="GenreTop_select" onchange="showTopList(this)">
+                      <option value="">--Choisir une catégorie--</option>
+                      <option value="Action">Action</option>
+                      <option value="Romance">Romance</option>
+                      <option value="Comedie">Comédie</option>
+                      <option value="Drame">Drame</option>
+                      <option value="Fantasy">Fantasy</option>
+                      <option value="All">Tous</option>
+                    </select> 
+                    <div class="row" id="top">
+
+                    </div>
+                    <a class="neon" id="create_list">
+                      <span></span>
+                      Créer sa liste 
+                      <i class="fas fa-plus-circle"></i>
+                    </a>
+                </div>
+              </div>
+            </div>
+            
+        </main>
+        <div id="form_page" class="hidden">
+          <button id="back_form">
+            <i class="fas fa-arrow-circle-left"></i>
+          </button>
+            <div class="col">
+              <div class="row" style="justify-content: center;">
+                <h1>Ajouter votre top par genre</h1>
+              </div>
+              <input class="center" style="margin-top: 30px;" type="text" placeholder="Nom du top Anime" id="inputNomListe" />
+              <button class="center" id="addItem" style="max-width: 50px; margin-top: 50px;">
+                <i class="far fa-plus-square"></i>
+              </button>
+              <div id="items">
+              </div>
+              <div class="row">
+                <div class="col" style="text-align: -webkit-center;">
+                  <button class="custom-btn btn-add" id="newListe"><span>Créer sa liste</span><span>➕</span></button>
+                  <button id="cancel_top">
+                    <i class="fas fa-remove-format"></i>
+                    <p>Effacer champs</p>
+                  </button>
+                </div>
+              </div> 
             </div>
         </div>
+        <div id="detail_page" class="hidden">
+          <button id="back_detail">
+            <i class="fas fa-arrow-circle-left"></i>
+          </button>
+          <div id="details"></div>
+        </div>
+        <footer>
+          <p id="copyright">Made by Enzo Lemarchand</p>
+            <!--widgets supp...-->
+        </footer>  
         <script src="cordova.js"></script>
-        <script src="js/index.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+        <script src="https://kit.fontawesome.com/04ea3b5487.js" crossorigin="anonymous"></script>
+        <script src="js/color.js"></script>
+        <script src="js/top.js"></script>
+        <script src="js/native.js"></script>
     </body>
 </html>

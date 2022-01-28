@@ -1,11 +1,31 @@
 {
-  "background_color": "#FFF",
-  "display": "standalone",
-  "name": "EnzoTopMAL",
-  "short_name": "EnzoTopMAL",
-  "version": "com.ynov.enzoTopMAL",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
-  "author": "Apache Cordova Team",
-  "icons": [],
-  "start_url": "index.html"
-}
+    "name": "MAL Top List Anime by genre",
+    "short_name": "Top Anime MAL",
+    "start_url": "./",
+    "description": "Une petite application de Top Anime/Manga triés par genre",
+    "display": "standalone",
+    "theme_color": "#C30F0F",
+    "icons": [
+      {
+        "src": "img/logos/logo50.png",
+        "sizes": "50x50",
+        "type": "image/png"
+      },
+      {
+        "src": "img/logos/logo144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "img/logo.png",
+        "sizes": "160x160",
+        "type": "image/png"
+      }
+    ],
+    "related_applications": [
+      {
+        "platform": "web"
+        
+      }
+    ]
+  }

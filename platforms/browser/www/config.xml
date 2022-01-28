@@ -15,4 +15,9 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="www/img/logo.png" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenBackgroundColor" value="0xFFFFFFFF" />
+    <preference name="SplashScreen" value="www/img/logos/logo144.png" />
 </widget>
