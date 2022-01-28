@@ -1,7 +1,7 @@
 {
     "name": "MAL Top List Anime by genre",
     "short_name": "Top Anime MAL",
-    "start_url": "/",
+    "start_url": "./",
     "description": "Une petite application de Top Anime/Manga triés par genre",
     "display": "standalone",
     "theme_color": "#C30F0F",

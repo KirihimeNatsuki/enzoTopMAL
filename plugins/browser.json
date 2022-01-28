@@ -9,6 +9,18 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.ynov.enzoTopMAL"
+    },
+    "cordova-plugin-battery-status": {
+      "PACKAGE_NAME": "com.ynov.enzoTopMAL"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.ynov.enzoTopMAL"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.ynov.enzoTopMAL"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.ynov.enzoTopMAL"
     }
   },
   "dependent_plugins": {}

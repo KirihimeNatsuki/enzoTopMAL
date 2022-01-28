@@ -18,7 +18,6 @@ document.getElementById("cancel_top").onclick = function() {
     document.getElementById("listName").value = "";
 }
 
-
 const addNewItemToTop = () => {
     let div = document.createElement("div");
     div.classList.add("form");
@@ -52,8 +51,8 @@ const addNewItemToTop = () => {
     inputDescription.setAttribute("placeholder", "Description de l'anime");
     inputDescription.id = "itemDescription" + document.getElementsByClassName("item").length;
 
-    inputImageURL.setAttribute("type", "file");
-    inputImageURL.setAttribute("accept", "image/png, image/jpeg");
+    inputImageURL.setAttribute("type", "text");
+    inputImageURL.setAttribute("placeholder", "URL d'image (1 seule)");
     inputImageURL.id = "itemImg" + document.getElementsByClassName("item").length;
 
     div.appendChild(inputAnime);
@@ -73,26 +72,10 @@ const checkTops = () => {
         window.localStorage.setItem("topAnimeList", "[]");
     }
     
-    createNewListe2();
-}
-const createNewListe = () => {
-    let NomListe = document.getElementById("inputNomListe").value;
-    let topAnime = JSON.parse(window.localStorage.getItem("topAnime"));
-    if(topAnime.indexOf(NomListe) === -1) {
-        topAnime.push(NomListe);
-        window.localStorage.setItem("topAnime", JSON.stringify(topAnime));
-    }
-    let animes = [];
-    for (let i = 0; i<document.getElementsByClassName("item").length; i++) {
-        animes.push(document.getElementsByClassName("item")[i].value);
-    }
-    window.localStorage.setItem(NomListe, JSON.stringify(animes));
-    effacerChamps();
-    document.getElementById("form_page").classList.add("hidden");
-    document.getElementById("home").classList.remove("hidden");
+    createNewListe();
 }
 
-const createNewListe2 = () => {
+const createNewListe = () => {
     let NomListe = document.getElementById("inputNomListe").value;
     let topAnime = new Object();
     let listefinale;
@@ -107,7 +90,6 @@ const createNewListe2 = () => {
             listefinale = JSON.stringify(topAnime);
         }
         else {
-            console.log(typeof listefinale);
             listefinale = listefinale + "," + JSON.stringify(topAnime);
         };
     }
@@ -134,13 +116,20 @@ function showTopList(element)
 
     let topAnimeList = JSON.parse(window.localStorage.getItem("topAnimeList"));
     let topAnime;
-    console.log(topAnime);
+    let tabGenre = [];
+    let tri = new Boolean(false);
     for(let i = 0; i < topAnimeList.length; i++) {
-        console.log("test");
-        topAnime = JSON.parse(window.localStorage.getItem(topAnimeList[i]))
-        console.log(topAnimeList[i]);
-        console.log(topAnime.genre);
-        if (value === topAnime.genre) {
+        tabGenre = [];
+        topAnime = JSON.parse(window.localStorage.getItem(topAnimeList[i]));
+        topAnime.forEach((top) => {
+            tabGenre.push(top.genre);
+        });
+        tabGenre.forEach((genre) => {
+            if (value === genre) {
+                tri = true;
+            }
+        });
+        if (tri === true) {
             let div = document.createElement("div");
             div.classList.add("list-item");
 
@@ -158,19 +147,41 @@ function showTopList(element)
 
             document.getElementById("top").appendChild(div);
         }
+        else if (value === "All") {
+            let div = document.createElement("div");
+            div.classList.add("list-item");
+
+            let item = document.createElement("span");
+            item.classList.add("item");
+            item.innerText = topAnimeList[i];
+            div.appendChild(item);
+
+            let button = document.createElement("button");
+            button.innerText = "Description -->";
+            button.onclick = () => {
+                show_list(topAnimeList[i])
+            }
+            div.appendChild(button);
+
+            document.getElementById("top").appendChild(div);
+        }
+        tri = false;
     }
  }
 
- const divAnime = `
+const divAnime = `
 <div class="anime">
-    <p style="text-align: left; font-weight: bold; padding: 5px; margin: 5px">__compteur__</p>
-    <h4>__name__</h4>
-    <div class="anime_content">
+    <p style="font-size: 30px; font-weight: bold; padding: 5px">__compteur__</p>
+    <h4>__name__ :</h4>
+    <div>
         <img src="__src__" class="anime_image" />
-        <p class="anime_genre">
-            __genre__
+        <p class="anime_content">
+            Genre : __genre__
         </p>
-        <a href="__url__" target="_blank">link</a>
+        <p class="anime_content">
+            Description : __description__
+        </p>
+        <button class="link" onclick="inAppAnime('__url__')">--Lien--</button>
     </div>
 </div>
 `;
@@ -183,7 +194,6 @@ const htmlToElement = (html) => {
 };
 
 function show_list(NomListe){
-    console.log(NomListe);
     document.getElementById("home").classList.add("hidden");
     document.getElementById("detail_page").classList.remove("hidden");
 
@@ -191,22 +201,37 @@ function show_list(NomListe){
 
     let topAnimeActive = document.getElementById("details");
     topAnimeActive.innerHTML = "";
+    let uri = "";
+    let encoded;
     topAnime.forEach((element, i) => {
+        uri = element.url;
+        encoded = encodeURIComponent(uri);
         const newDivAnime = divAnime
             .replace("__compteur__", i+1)
             .replace("__name__", element.nomAnime)
-            .replace("__src__", element.img)
+            .replace("__src__", element.image)
             .replace("__genre__", element.genre)
-            .replace("__genre__", element.description)
-            .replace("__url__", element.url);
+            .replace("__description__", element.description)
+            .replace("__url__", encoded);
 
             topAnimeActive.appendChild(htmlToElement(newDivAnime));
         i++;
     });
+    setRandomColor();
 }
 
-document.getElementById("addItem").onclick = addNewItemToTop;
-document.getElementById("newListe").onclick = checkTops;
-document.getElementById("cancel_top").onclick = effacerChamps;
+function inAppAnime(url){
+    console.log("ENCODED URL :", url);
+    let decoded = decodeURIComponent(url);
+    console.log("DECODED URL :", decoded);
+    let devicePlatform = device.platform;
+    if (devicePlatform === "browser"){
+        window.open(decoded, '_blank', 'location=yes');
+    }
+    else {
+        let ref = cordova.InAppBrowser.open(decoded, '_blank', 'location=yes');
+        ref.open();
+    }
+}
 
 

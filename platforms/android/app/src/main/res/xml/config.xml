@@ -4,6 +4,19 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Battery">
+        <param name="android-package" value="org.apache.cordova.batterystatus.BatteryListener" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <name>EnzoTopMAL</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -19,6 +32,17 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="www/img/logo.png" />
     <allow-intent href="market:*" />
+    <splash density="hdpi" src="www/img/logos/drawable-hdpi/logo.png" />
+    <splash density="ldpi" src="www/img/logos/drawable-ldpi/logo.png" />
+    <splash density="mdpi" src="www/img/logos/drawable-mdpi/logo.png" />
+    <splash density="xhdpi" src="www/img/logos/drawable-xhdpi/logo.png" />
+    <splash density="xxhdpi" src="www/img/logos/drawable-xxhdpi/logo.png" />
+    <splash density="xxxhdpi" src="www/img/logos/drawable-xxxhdpi/logo.png" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenBackgroundColor" value="0xFFFFFFFF" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 </widget>
