@@ -28,3 +28,13 @@ Browser
 $ cordova platform add/remove browser
 $ cordova build/emulate browser
 ```
+
+## Push Notification (OneSignal) :
+To enable notification (might generate bugs with it enabled) :
+Decomment the line 47 to 50 in /www/index.html
+```sh
+<!-- <script
+      src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+      async=""
+></script> -->
+```
